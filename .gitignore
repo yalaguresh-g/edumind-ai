@@ -1,0 +1,27 @@
+﻿# Environment variables and secrets
+.env
+.env.*
+!.env.example
+
+# Python
+.venv/
+.venv-*/
+venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+
+# Node
+node_modules/
+dist/
+
+# Database and uploaded files
+backend/materials.db
+backend/uploads/
+
+# Large backup archive
+backend.zip
+
+# IDE and deployment
+.vercel/
+.vscode/
