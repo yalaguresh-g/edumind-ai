@@ -1,300 +1,406 @@
-# EduMind AI Lite – Multimodal AI Study Assistant 🎓🤖
+# EduMind AI – Multimodal AI Study Assistant 🎓🤖
 
-An intelligent, full-stack educational web application that empowers students to comprehend and master their study materials using Google Gemini multimodal AI.
+**An AI-powered learning assistant that helps students understand, summarize, and practice their study materials using React, FastAPI, and GroqCloud AI.**
+
+EduMind AI transforms uploaded study materials into an interactive learning experience. Students can upload PDF documents, images, and audio recordings, ask questions, generate structured summaries, simplify complex concepts, and practice with AI-generated quizzes.
 
 ---
 
 ## 🌟 Overview
 
-**EduMind AI Lite** transforms static notes, textbook diagrams, and recorded audio lectures into an interactive, conversational learning environment. Instead of generic AI chatbots that lack academic context, EduMind AI grounds every answer, summary, and quiz directly in the student's uploaded material.
+EduMind AI is a full-stack educational application designed to make studying more interactive and accessible.
 
-### 🎯 Key Highlights
-- **Tri-Modality Support:** Native understanding of **PDF documents**, **visual diagrams/notes (PNG, JPG, WEBP)**, and **audio recordings (MP3, WAV, M4A, OGG)**.
-- **Zero Hallucination Guardrails:** AI answers are grounded strictly in the uploaded context with explicit acknowledgment when information is outside the material.
-- **Real-Time Gemini Multimodal Integration:** Built on the official Google GenAI Python SDK (`google-genai`) using Gemini Flash multimodal models.
-- **Interactive Quiz Engine:** Generates exactly 5 exam-grade MCQs with single-question view, delayed scoring, and review mode with explanations.
-- **Enterprise-Grade UI/UX:** Clean SaaS aesthetic designed for college project demonstrations and production study workflows.
+Instead of manually going through lengthy notes, students can upload their learning materials and use an AI study assistant to:
 
----
+- Ask questions about uploaded materials.
+- Generate structured study summaries.
+- Understand difficult topics through beginner-friendly explanations.
+- Generate practice quizzes based on study content.
+- Upload and manage PDF, image, and audio materials.
+
+The application uses **GroqCloud AI** for text generation and audio transcription, together with document extraction and OCR technologies.
 
 ## 🚀 Features
 
-### 1. Modern Learning Dashboard
-- Quick modality upload cards for **PDF**, **Image**, and **Audio**.
-- Real-time session stats (Uploaded materials count, Quizzes completed).
-- Quick action cards for **Ask AI Tutor**, **Generate Summary**, **Beginner Breakdown**, and **Generate 5 MCQs**.
-- Recent materials gallery with instant jump actions.
+### 1. Learning Dashboard
+- Central dashboard for accessing study tools.
+- Quick access to AI chat, summaries, explanations, and quizzes.
+- Uploaded study materials overview.
+- Easy navigation between application sections.
 
-### 2. Robust Multimodal File Upload
-- Drag-and-drop & native file browser.
-- Multi-format validation: `.pdf`, `.png`, `.jpg`, `.jpeg`, `.webp`, `.mp3`, `.wav`, `.m4a`, `.ogg`.
-- Max file size guard: 20MB per file with upload progress indicators.
-- In-browser previews:
-  - High-resolution image preview lightbox.
-  - Native HTML5 audio player for lecture playback.
-  - PDF document preview & metadata extraction.
-- Material deletion & cleanup.
+### 2. Study Material Upload
+- Upload PDF documents.
+- Upload images: PNG, JPG, JPEG, and WEBP.
+- Upload audio recordings: MP3, WAV, M4A, and OGG.
+- File size limit: 20 MB per file.
+- Material listing and deletion.
+- PDF, image, and audio preview support in the frontend.
 
-### 3. AI Study Assistant & Chat
-- Contextual multi-turn chat grounded in the active study material.
-- User and AI message bubbles with timestamps and copy-to-clipboard.
-- Auto-scroll and typing indicators.
-- Quick suggested prompts for fast inquiry.
-- Clear conversation option.
+### 3. AI Study Assistant
+- Ask questions about uploaded study materials.
+- Context-aware responses based on extracted material content.
+- Interactive question-and-answer experience.
+- Conversational study support.
 
-### 4. High-Yield Summary Generator
-- Structured study overview:
-  - **Main Subject / Topic**
-  - **Important Concepts**
-  - **Key Takeaways & Points**
-  - **Essential Academic Definitions**
-  - **Real-World Examples & Applications**
-  - **Quick Exam Revision Notes**
+### 4. AI Summary Generator
+Generate structured summaries from uploaded materials, helping students identify important concepts and revision points.
 
-### 5. Explain Like I'm a Beginner (Feynman Technique)
-- Simplifies complex topics without technical jargon.
-- Intuitive real-life analogies.
-- Step-by-step breakdown.
-- Key takeaways to remember before exams.
+### 5. Beginner-Friendly Explanations
+- Simplifies complex topics.
+- Provides step-by-step explanations.
+- Uses accessible language and examples.
+- Helps students understand unfamiliar concepts.
 
-### 6. Interactive 5-Question Quiz Generator
-- Exactly 5 MCQs formulated from the uploaded content.
-- 4 plausible options per question (A, B, C, D).
-- One-question-at-a-time interactive view.
-- Anti-spoiler design: correct answers remain hidden until submission.
-- Instant score calculation and percentage grade.
-- Comprehensive review mode highlighting correct answers and educational explanations.
-- Retake quiz capability.
+### 6. AI Quiz Generator
+- Generates five multiple-choice questions.
+- Four options per question.
+- Interactive question-by-question experience.
+- Score calculation and answer review.
+- Explanations to support learning.
+
+---
+
+## 🧠 AI Processing Architecture
+
+EduMind AI uses different processing techniques depending on the uploaded material.
+
+| Material | Processing technology |
+|---|---|
+| Text-based PDF | PyMuPDF |
+| Scanned PDF | Tesseract OCR |
+| Images | Tesseract OCR |
+| Audio recordings | Groq Whisper transcription |
+| Chat and summaries | GroqCloud text generation |
+| Explanations and quizzes | GroqCloud text generation |
+
+**Important:** Image processing currently extracts readable text using OCR. It does not provide complete visual understanding of diagrams or images. Audio is transcribed before the resulting text is processed by the AI text model.
+
+### AI Models
+
+- **Text generation:** `openai/gpt-oss-120b`
+- **Audio transcription:** `whisper-large-v3-turbo`
+- **AI provider:** GroqCloud
 
 ---
 
 ## 🛠️ Technology Stack
 
-| Component | Technology | Description |
-|---|---|---|
-| **Frontend** | React 18 + Vite | Lightning-fast build tooling and reactive UI |
-| **Routing** | React Router v6 | Single Page Application (SPA) client routing |
-| **Icons** | Lucide React | Modern, clean vector iconography |
-| **HTTP Client** | Axios | API communication with upload progress tracking |
-| **Backend** | Python 3.10+ / FastAPI | High-performance asynchronous API framework |
-| **Server** | Uvicorn | ASGI web server implementation |
-| **AI SDK** | `google-genai` | Official Google GenAI Python SDK |
-| **AI Model** | Google Gemini (`gemini-2.5-flash`) | State-of-the-art multimodal reasoning |
-| **Data Validation**| Pydantic v2 | Robust request/response schema serialization |
+| Component | Technology |
+|---|---|
+| Frontend | React 18 |
+| Build Tool | Vite |
+| Routing | React Router |
+| Icons | Lucide React |
+| HTTP Client | Axios |
+| Backend | Python, FastAPI |
+| API Server | Uvicorn |
+| AI Provider | GroqCloud |
+| AI SDK | Groq Python SDK |
+| Text Generation | GPT OSS 120B |
+| Audio Transcription | Whisper Large V3 Turbo |
+| PDF Extraction | PyMuPDF |
+| Image and PDF OCR | Tesseract OCR, Pytesseract |
+| Database | SQLite |
+| Data Validation | Pydantic |
 
 ---
 
-## 🏛️ System Architecture
-
-Material metadata is stored in SQLite at `backend/materials.db`; uploaded binary files remain in `backend/uploads/`. Existing UUID-named uploads are imported into SQLite on startup when possible. This prevents metadata loss on API restarts and ensures all study endpoints resolve the same material record.
+## 🏗️ System Architecture
 
 ```mermaid
 flowchart TD
-    User["Student (Browser)"]
-    Frontend["React + Vite Frontend (Port 5173)"]
-    Backend["FastAPI Backend (Port 8000)"]
-    Storage["SQLite metadata (backend/materials.db) + persistent files (backend/uploads)"]
-    Gemini["Google Gemini Multimodal API"]
+    A["Student / Browser"]
+    B["React + Vite Frontend"]
+    C["FastAPI Backend"]
+    D["File Storage"]
+    E["SQLite Database"]
+    F["PDF Text Extraction"]
+    G["Tesseract OCR"]
+    H["Groq Whisper"]
+    I["GroqCloud Text Model"]
 
-    User -->|"Uploads PDF / Image / Audio"| Frontend
-    Frontend -->|"POST /api/study/upload"| Backend
-    Backend -->|"Save file & validate"| Storage
-    
-    User -->|"Ask Question / Summary / Quiz"| Frontend
-    Frontend -->|"POST /api/study/(chat|summary|explain|quiz)"| Backend
-    Backend -->|"Multimodal Bytes + System Prompt"| Gemini
-    Gemini -->|"Grounded Response (Text/JSON)"| Backend
-    Backend -->|"Validated Schema"| Frontend
-    Frontend -->|"Render Cards / Quiz / Chat"| User
+    A --> B
+    B --> C
+    C --> D
+    C --> E
+
+    D --> F
+    D --> G
+    D --> H
+
+    F --> I
+    G --> I
+    H --> I
+
+    I --> C
+    C --> B
+    B --> A
 ```
+
+### Application Flow
+
+1. A student uploads a PDF, image, or audio recording.
+2. The FastAPI backend validates and stores the uploaded file.
+3. Material metadata is maintained in SQLite.
+4. The appropriate extraction or transcription process retrieves the material content.
+5. Extracted text is passed to GroqCloud for AI processing.
+6. The generated response is returned to the React frontend.
 
 ---
 
-## 📁 Project Folder Structure
+## 📁 Project Structure
 
-```
+```text
 edumind-ai/
+│
 ├── backend/
 │   ├── app/
-│   │   ├── __init__.py
-│   │   ├── main.py                 # FastAPI application & middleware
-│   │   ├── config.py               # Environment configuration
+│   │   ├── main.py
+│   │   ├── config.py
+│   │   │
 │   │   ├── routes/
-│   │   │   ├── __init__.py
-│   │   │   ├── health.py           # GET /api/health
-│   │   │   └── study.py            # Upload, Chat, Summary, Explain, Quiz APIs
+│   │   │   ├── health.py
+│   │   │   └── study.py
+│   │   │
 │   │   ├── services/
-│   │   │   ├── __init__.py
-│   │   │   ├── file_service.py     # File validation, SQLite metadata, durable file lookup
-│   │   │   ├── gemini_service.py   # Google GenAI SDK multimodal integration
-│   │   │   └── prompt_service.py   # Educational tutor prompts & schemas
+│   │   │   ├── file_service.py
+│   │   │   ├── groq_service.py
+│   │   │   └── prompt_service.py
+│   │   │
 │   │   └── schemas/
-│   │       ├── __init__.py
-│   │       └── study.py            # Pydantic validation models
-│   ├── uploads/                    # Persistent uploaded file directory
-│   ├── materials.db                 # SQLite metadata (created automatically)
-│   ├── requirements.txt            # Python dependencies
-│   ├── test_api.py                 # Automated backend test suite
-│   └── .env.example                # Environment variables template
+│   │       └── study.py
+│   │
+│   ├── requirements.txt
+│   ├── .env.example
+│   └── grok_service.py
+│
 ├── frontend/
 │   ├── public/
 │   ├── src/
 │   │   ├── components/
-│   │   │   ├── Header.jsx          # Top navigation & API status pill
-│   │   │   ├── Sidebar.jsx         # Sidebar navigation
-│   │   │   ├── UploadCard.jsx      # Modality upload cards
-│   │   │   ├── FileUploader.jsx    # Drag-and-drop uploader & preview
-│   │   │   ├── ChatWindow.jsx      # Interactive chat container
-│   │   │   ├── ChatMessage.jsx     # Markdown message bubble renderer
-│   │   │   ├── SummaryPanel.jsx    # Structured summary component
-│   │   │   ├── QuizCard.jsx        # 5-question interactive quiz
-│   │   │   ├── LoadingState.jsx    # Animated loading indicator
-│   │   │   └── Toast.jsx           # Toast notification provider
 │   │   ├── pages/
-│   │   │   ├── Dashboard.jsx       # Main landing dashboard
-│   │   │   ├── StudyAssistant.jsx  # Multi-tab AI study workspace
-│   │   │   ├── Materials.jsx       # File gallery & management
-│   │   │   ├── QuizGenerator.jsx   # Dedicated quiz practice view
-│   │   │   └── About.jsx           # Project documentation & demo guide
 │   │   ├── services/
-│   │   │   └── api.js              # Centralized Axios API client
 │   │   ├── styles/
-│   │   │   ├── global.css          # Design tokens, variables & typography
-│   │   │   └── components.css      # Component-level styling
-│   │   ├── App.jsx                 # Routing & state management
-│   │   └── main.jsx                # React DOM entry point
+│   │   ├── App.jsx
+│   │   └── main.jsx
+│   │
 │   ├── index.html
-│   ├── vite.config.js              # Vite server & backend proxy
-│   └── package.json                # Frontend dependencies
+│   ├── package.json
+│   └── vite.config.js
+│
 ├── .gitignore
-└── README.md
+├── README.md
+└── TEST_REPORT.md
 ```
 
 ---
 
 ## ⚙️ Prerequisites
 
-1. **Python 3.10 or higher** (Python 3.14+ supported).
-2. **Node.js (v18 or higher)** and `pnpm` (or `npm`).
-3. **Google Gemini API Key** (Free from [Google AI Studio](https://aistudio.google.com/)).
+Install the following before running the application:
+
+1. **Python 3.10 or higher**
+2. **Node.js 18 or higher**
+3. **npm**
+4. **Git**
+5. **Tesseract OCR** – required for image and scanned-PDF text extraction.
+6. **GroqCloud API key** – required for AI generation and audio transcription.
+
+### Install Tesseract OCR
+
+For Windows, install Tesseract OCR using the UB Mannheim Windows installer:
+
+https://github.com/UB-Mannheim/tesseract/wiki
+
+The default configuration expects:
+
+```text
+C:\Program Files\Tesseract-OCR\tesseract.exe
+```
+
+If Tesseract is installed in another location, configure `TESSERACT_CMD` in your backend environment file.
+
+### Obtain a GroqCloud API Key
+
+1. Visit https://console.groq.com/
+2. Create an account or sign in.
+3. Open the API Keys section.
+4. Generate an API key.
+5. Store it in your backend `.env` file.
+
+Never publish your actual API key.
 
 ---
 
-## 🔑 Obtaining & Configuring Your Gemini API Key
+## 🔑 Environment Configuration
 
-1. Go to **[Google AI Studio](https://aistudio.google.com/)**.
-2. Sign in with your Google account.
-3. Click on **"Get API key"** and create a new key.
-4. In the project root, open `backend/.env` (create it by copying `backend/.env.example`).
-5. Paste your API key:
-   ```env
-   GEMINI_API_KEY=AIzaSyYourActualGeminiApiKeyHere
-   GEMINI_MODEL=gemini-2.5-flash
-   FRONTEND_ORIGIN=http://localhost:5173
-   MAX_UPLOAD_MB=20
-   ```
-   *(Note: You can also use `gemini-2.0-flash` or `gemini-1.5-flash` depending on your account's regional availability).*
+Create a file named `.env` inside the `backend` directory.
+
+Use the following configuration as a starting point:
+
+```env
+GROQ_API_KEY=your_groq_api_key_here
+GROQ_MODEL=openai/gpt-oss-120b
+GROQ_AUDIO_MODEL=whisper-large-v3-turbo
+TESSERACT_CMD=C:\Program Files\Tesseract-OCR\tesseract.exe
+```
+
+Use any additional settings required by your actual `backend/app/config.py` and `.env.example`.
+
+**Security:** Never commit `backend/.env` to GitHub. Keep API keys on the backend only.
 
 ---
 
-## 🚀 Installation & Running
+## 💻 Installation and Running
 
-Copy `backend/.env.example` to `backend/.env` and set a private `GEMINI_API_KEY`. Never commit or share `backend/.env`.
+Clone the repository:
 
-Open **two separate Windows PowerShell windows** (one for Backend, one for Frontend):
+```bash
+git clone https://github.com/YOUR_USERNAME/edumind-ai.git
+cd edumind-ai
+```
 
-### Window 1: Start Backend (FastAPI)
+Replace `YOUR_USERNAME` with your GitHub username.
+
+### 1. Backend Setup
+
+Open a terminal:
 
 ```powershell
-# Navigate to the backend directory
-cd C:\Users\Yalaguresh\AI\edumind-ai\backend
+cd backend
+```
 
-# Install dependencies
+Create and activate a Python virtual environment:
+
+```powershell
+python -m venv .venv
+.\.venv\Scripts\Activate.ps1
+```
+
+Install backend dependencies:
+
+```powershell
 python -m pip install -r requirements.txt
-
-# Run automated test suite to verify health & endpoints
-python test_api.py
-
-# Start the FastAPI server on port 8000
-python -m uvicorn app.main:app --host 127.0.0.1 --port 8000 --reload
 ```
-*Backend will be running at:* `http://127.0.0.1:8000`  
-*Interactive Swagger API Docs:* `http://127.0.0.1:8000/docs`
 
----
+Configure your `backend/.env` file with your GroqCloud API key.
 
-### Window 2: Start Frontend (React + Vite)
+Start the FastAPI server:
 
 ```powershell
-# Navigate to the frontend directory
-cd C:\Users\Yalaguresh\AI\edumind-ai\frontend
-
-# Install dependencies (using pnpm or npm)
-pnpm install
-
-# Start the Vite development server
-pnpm run dev
+python -m uvicorn app.main:app --reload
 ```
-*Frontend will be running at:* `http://localhost:5173`
+
+Backend:
+
+http://127.0.0.1:8000
+
+Interactive API documentation:
+
+http://127.0.0.1:8000/docs
+
+Health endpoint:
+
+http://127.0.0.1:8000/api/health
+
+### 2. Frontend Setup
+
+Open a second terminal:
+
+```powershell
+cd frontend
+```
+
+Install dependencies:
+
+```powershell
+npm install
+```
+
+Start the development server:
+
+```powershell
+npm run dev
+```
+
+Frontend:
+
+http://localhost:5173
+
+Keep both development servers running while using the local application.
 
 ---
 
-## 📡 API Endpoints Reference
+## 📡 API Endpoints
 
 | Method | Endpoint | Description |
 |---|---|---|
-| `GET` | `/api/health` | Check backend status and Gemini configuration status |
-| `POST` | `/api/study/upload` | Upload PDF, image, or audio study file (max 20MB) |
-| `GET` | `/api/study/materials` | List all materials uploaded in current session |
-| `GET` | `/api/study/files/{id}/content` | Stream uploaded image or audio for preview/playback |
-| `DELETE` | `/api/study/materials/{id}` | Delete material and clean up server disk file |
-| `POST` | `/api/study/chat` | Send question + context + history to Gemini tutor |
-| `POST` | `/api/study/summary` | Generate high-yield structured summary JSON |
-| `POST` | `/api/study/explain` | Generate beginner breakdown with real-world analogy |
-| `POST` | `/api/study/quiz` | Generate exactly 5 MCQs in validated JSON schema |
+| GET | `/api/health` | Backend and Groq configuration status |
+| POST | `/api/study/upload` | Upload study materials |
+| GET | `/api/study/materials` | Retrieve uploaded materials |
+| GET | `/api/study/files/{id}/content` | Retrieve material content for preview |
+| DELETE | `/api/study/materials/{id}` | Delete a study material |
+| POST | `/api/study/chat` | Ask questions about study materials |
+| POST | `/api/study/summary` | Generate a study summary |
+| POST | `/api/study/explain` | Generate beginner-friendly explanations |
+| POST | `/api/study/quiz` | Generate five MCQs |
 
 ---
 
-## 🛡️ Security & Privacy Guardrails
+## 🔐 Security and Data Storage
 
-- **Backend-Only Secrets:** API keys are loaded strictly in the Python backend via environment variables. The key is never exposed to the browser or client-side bundles.
-- **Sanitized UUID Storage:** Uploaded files receive cryptographically random UUID filenames to prevent path traversal or file overwrites.
-- **Strict MIME & Size Validation:** Blocks unauthorized executables or malicious formats before reaching AI pipelines.
-- **CORS Protection:** Configured with origins for secure local communication.
+- API keys are configured through backend environment variables.
+- API credentials are not intended to be exposed in frontend code.
+- Uploaded files are assigned unique identifiers.
+- File validation and upload-size restrictions are implemented.
+- SQLite stores material metadata.
+- Uploaded files are stored separately in the backend uploads directory.
+- `.env`, virtual environments, local databases, and uploaded materials are excluded from the Git repository through `.gitignore`.
 
----
-
-## 🎓 College Mini-Project Demonstration Script
-
-When presenting to faculty or project evaluators, follow this concise script:
-
-1. **Introduction:** *"EduMind AI Lite is a multimodal study tutor that solves passive reading by transforming lecture notes, whiteboard photos, and audio lectures into an interactive AI study partner."*
-2. **Architecture:** *"The frontend is built with React 18 and Vite for instant UI feedback. The backend uses FastAPI with asynchronous I/O and the official Google GenAI Python SDK."*
-3. **Multimodal Demo:**
-   - *PDF:* Upload a textbook page or lecture slide to show native document understanding.
-   - *Image:* Upload a diagram or handwritten note to demonstrate Gemini Vision.
-   - *Audio:* Upload a short voice memo or lecture recording to show audio comprehension.
-4. **Interactive Assistant:**
-   - Ask a conceptual question in the **Chat** to show strict content grounding.
-   - Click **Generate Summary** to demonstrate the extraction of core concepts, key definitions, and revision notes.
-   - Click **Explain Like I'm a Beginner** to demonstrate the Feynman technique breakdown and analogy.
-5. **Interactive Quiz:**
-   - Generate **5 MCQs**.
-   - Answer the questions, click **Submit**, and display the automated scoring and detailed rationale review mode.
+**Deployment consideration:** The current SQLite and local file-storage setup requires persistent storage in production. Temporary hosting filesystems may be cleared during restarts or redeployments. Configure persistent storage or migrate to managed database and file-storage services before relying on long-term user uploads.
 
 ---
 
-## 🔮 Future Enhancements
-- Integration with spaced-repetition flashcard export (Anki `.apkg` format).
-- Export summaries directly to formatted PDF / Markdown notes.
-- Speech-to-speech audio conversation mode with the Gemini Live API.
-- Support for YouTube lecture URL transcription and summary.
+## 🚀 Future Enhancements
 
+- Cloud-based file storage.
+- Persistent database deployment.
+- Improved OCR for handwritten notes.
+- Advanced visual understanding of diagrams.
+- Flashcard generation.
+- Export summaries to PDF.
+- Additional language support.
+- User authentication and personalized study history.
+- Deployment with production monitoring.
 
+---
 
-## Persistent materials and security
+## 🎓 Project Information
 
-- Material metadata is stored in SQLite (`backend/materials.db`); uploaded bytes remain in `backend/uploads/`.
-- On startup, UUID-named legacy files in `backend/uploads/` are registered without changing their IDs.
-- Do not commit or share `backend/.env`. Copy `.env.example` to `.env` and use a newly generated Gemini API key.
-- The backend uses the official `google-genai` SDK (`client.models.generate_content`) and passes uploaded bytes as `types.Part.from_bytes`; the model is configured only through `GEMINI_MODEL`.
+**Project:** EduMind AI – Multimodal AI Study Assistant
+
+**Category:** Artificial Intelligence / Full Stack Development
+
+**Frontend:** React + Vite
+
+**Backend:** Python + FastAPI
+
+**AI Integration:** GroqCloud
+
+**Database:** SQLite
+
+---
+
+## 👨‍💻 Author
+
+**Yalaguresh Ganti**
+
+GitHub: https://github.com/yalaguresh-g
+
+LinkedIn: https://linkedin.com/in/yalaguresh-g
+
+---
+
+## 📄 License
+
+This project is available for educational and learning purposes. Add a license file if you intend to distribute it under specific reuse terms.
