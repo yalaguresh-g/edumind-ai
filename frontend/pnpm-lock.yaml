@@ -24,9 +24,6 @@ importers:
         specifier: ^6.28.0
         version: 6.30.6(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
     devDependencies:
-      '@esbuild/win32-x64':
-        specifier: 0.25.12
-        version: 0.25.12
       '@types/react':
         specifier: ^18.3.12
         version: 18.3.31
@@ -978,7 +975,8 @@ snapshots:
   '@esbuild/win32-ia32@0.25.12':
     optional: true
 
-  '@esbuild/win32-x64@0.25.12': {}
+  '@esbuild/win32-x64@0.25.12':
+    optional: true
 
   '@jridgewell/gen-mapping@0.3.13':
     dependencies:
