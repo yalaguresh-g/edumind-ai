@@ -270,7 +270,7 @@ Open a terminal:
 cd backend
 ```
 
-Create and activate a Python virtual environment:
+Create and activate a Python virtual :
 
 ```powershell
 python -m venv .venv
